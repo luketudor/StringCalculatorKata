@@ -60,5 +60,14 @@ namespace StringCalculator
             Assert.AreEqual(expected, actual);
         }
 
+        [Test]
+        public void ReturnSumForMultipleSeparatorInput1()
+        {
+            var stringCalculator = new Calculator();
+            var actual = stringCalculator.Add("//;\n2;1");
+            const int expected = 3;
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
