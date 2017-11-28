@@ -12,7 +12,7 @@ namespace StringCalculator
             if (string.IsNullOrEmpty(input)) return 0;
 
             var sum = 0;
-            var numbers = SplittingTheInput(input);
+            var numbers = Split(input);
             var negatives = "";
             foreach (var stringValue in numbers)
             {
@@ -30,7 +30,7 @@ namespace StringCalculator
             throw new ArgumentException("negatives not allowed: " + negatives);
         }
 
-        public string[] SplittingTheInput(string input)
+        public string[] Split(string input)
         {
             var delimiter = ',';
             var inputArray = input.ToCharArray();
