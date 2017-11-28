@@ -9,28 +9,25 @@ namespace StringCalculator
     {
         public int Add(string input)
         {
-            if (string.IsNullOrEmpty(input))
-            {
-                return 0;
-            }
-           
+            if (string.IsNullOrEmpty(input)) return 0;
+
+            var sum = 0;
             var numbers = SplittingTheInput(input);
             var negatives = "";
-            foreach (string num in numbers)
+            foreach (var stringValue in numbers)
             {
-                if (int.Parse(num) < 0)
+                var number = int.Parse(stringValue);
+                if (number < 0)
                 {
-                    negatives += int.Parse(num) + ", ";
+                    negatives += number + ", ";
                 }
-                
+                sum += number;
             }
-            if (!string.IsNullOrEmpty(negatives))
-            {
-                negatives = negatives.TrimEnd(',', ' ');
-                throw new Exception("negatives not allowed: " + negatives);
-            }
-            
-            return string.IsNullOrEmpty(input) ? 0 : numbers.Sum(int.Parse);
+
+            if (string.IsNullOrEmpty(negatives)) return sum;
+
+            negatives = negatives.TrimEnd(',', ' ');
+            throw new ArgumentException("negatives not allowed: " + negatives);
         }
 
         public string[] SplittingTheInput(string input)

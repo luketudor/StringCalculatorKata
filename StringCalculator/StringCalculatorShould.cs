@@ -71,7 +71,7 @@ namespace StringCalculator
         }
 
         [Test]
-        public void Bar()
+        public void ThrowsExceptionForNegativeInput()
         {
             var stringCalculator = new Calculator();
             const string expected = "negatives not allowed: -1, -2";
@@ -79,9 +79,9 @@ namespace StringCalculator
             try
             {
                 stringCalculator.Add("-1,1,5,-2");
-                Assert.Fail("LOL");
+                Assert.Fail();
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 Assert.AreEqual(expected, e.Message);
             }
