@@ -69,5 +69,23 @@ namespace StringCalculator
 
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void Bar()
+        {
+            var stringCalculator = new Calculator();
+            const string expected = "negatives not allowed: -1, -2";
+
+            try
+            {
+                stringCalculator.Add("-1,1,5,-2");
+                Assert.Fail("LOL");
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+
     }
 }

@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace StringCalculator
 {
@@ -6,7 +9,27 @@ namespace StringCalculator
     {
         public int Add(string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return 0;
+            }
+           
             var numbers = SplittingTheInput(input);
+            var negatives = "";
+            foreach (string num in numbers)
+            {
+                if (int.Parse(num) < 0)
+                {
+                    negatives += int.Parse(num) + ", ";
+                }
+                
+            }
+            if (!string.IsNullOrEmpty(negatives))
+            {
+                negatives = negatives.TrimEnd(',', ' ');
+                throw new Exception("negatives not allowed: " + negatives);
+            }
+            
             return string.IsNullOrEmpty(input) ? 0 : numbers.Sum(int.Parse);
         }
 
