@@ -1,35 +1,28 @@
-﻿using System;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq;
 
 namespace StringCalculator
 {
     public class Calculator
     {
-        public Calculator()
-        {
-        }
-
-
         public int Add(string input)
         {
-            string[] splitString;
-           var inputArray = input.ToCharArray();
-            if (input.StartsWith("/"))
+            var numbers = SplittingTheInput(input);
+            return string.IsNullOrEmpty(input) ? 0 : numbers.Sum(int.Parse);
+        }
+
+        public string[] SplittingTheInput(string input)
+        {
+            var delimiter = ',';
+            var inputArray = input.ToCharArray();
+            if (input.StartsWith("//"))
             {
-                var delimiter = inputArray[2];
-                string output = input.TrimStart('/', ';', '\n');
-               splitString = output.Split(delimiter, '\n');
-                return splitString.Sum(int.Parse);
+                delimiter = inputArray[2];
+                input = input.TrimStart('/', ';', '\n');
             }
 
-            if (string.IsNullOrEmpty(input))
-            {
-                return 0;
-            }
-            splitString = input.Split(',', '\n');
-            return splitString.Sum(int.Parse);
+            var splitString = input.Split(delimiter, ',', '\n');
+
+            return splitString;
         }
     }
 }

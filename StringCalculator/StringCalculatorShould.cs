@@ -61,7 +61,7 @@ namespace StringCalculator
         }
 
         [Test]
-        public void ReturnSumForMultipleSeparatorInput1()
+        public void ReturnSumForSpecifiedDelimiter()
         {
             var stringCalculator = new Calculator();
             var actual = stringCalculator.Add("//;\n2;1");
