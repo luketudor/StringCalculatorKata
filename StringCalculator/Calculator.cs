@@ -39,7 +39,7 @@ namespace StringCalculator
                 }
 
                 delimiters = delimiterList.ToArray();
-                input = Regex.Replace(input, "//\\[.+\\]+\n", delimiters[0]); /* //[delim][delim]\n */
+                input = Regex.Replace(input, "//\\[.+\\]\n", delimiters[0]); /* //[delim][delim]\n */
             }
 
             var splitString = input.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
