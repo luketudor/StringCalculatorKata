@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace StringCalculator
@@ -11,11 +7,21 @@ namespace StringCalculator
     public class StringCalculatorShould
     {
         [Test]
+        public void ReturnEmptyArray()
+        {
+            var stringCalculator = new Calculator();
+            var actual = stringCalculator.Add(new[] {""});
+            const int expected = 0;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
         public void ReturnEmptyString()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add("");
-            const int expected = 0;
+            var actual = stringCalculator.Split("");
+            var expected = new[] {""};
 
             Assert.AreEqual(expected, actual);
         }
@@ -24,7 +30,7 @@ namespace StringCalculator
         public void ReturnSingleInputAsOutput()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add("1");
+            var actual = stringCalculator.Add(new[] {"1"});
             const int expected = 1;
 
             Assert.AreEqual(expected, actual);
@@ -34,7 +40,7 @@ namespace StringCalculator
         public void ReturnTwoInputSum()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add("1,2");
+            var actual = stringCalculator.Add(new[] {"1", "2"});
             const int expected = 3;
 
             Assert.AreEqual(expected, actual);
@@ -44,18 +50,28 @@ namespace StringCalculator
         public void ReturnMoreThanTwoInputSum()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add("1,2,1,1,1,1,1,1,1");
+            var actual = stringCalculator.Add(new[] {"1", "2", "1", "1", "1", "1", "1", "1", "1"});
             const int expected = 10;
 
             Assert.AreEqual(expected, actual);
         }
 
         [Test]
-        public void ReturnSumForMultipleSeparatorInput()
+        public void ReturnSplitByComma()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add("1\n2,1,1,1,1,1,1,1");
-            const int expected = 10;
+            var actual = stringCalculator.Split("1,2,1,1,1,1,1,1,1");
+            var expected = new[] {"1", "2", "1", "1", "1", "1", "1", "1", "1"};
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ReturnSplitByNewLine()
+        {
+            var stringCalculator = new Calculator();
+            var actual = stringCalculator.Split("1\n2,1,1,1,1,1,1,1");
+            var expected = new[] {"1", "2", "1", "1", "1", "1", "1", "1", "1"};
 
             Assert.AreEqual(expected, actual);
         }
@@ -64,8 +80,8 @@ namespace StringCalculator
         public void ReturnSumForSpecifiedDelimiter()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add("//;\n2;1");
-            const int expected = 3;
+            var actual = stringCalculator.Split("//;\n2;1");
+            var expected = new[] {"2", "1"};
 
             Assert.AreEqual(expected, actual);
         }
@@ -78,7 +94,7 @@ namespace StringCalculator
 
             try
             {
-                stringCalculator.Add("-1,1,5,-2");
+                stringCalculator.Add(new[] {"-1", "1", "5", "-2"});
                 Assert.Fail();
             }
             catch (ArgumentException e)
@@ -87,5 +103,14 @@ namespace StringCalculator
             }
         }
 
+        [Test]
+        public void ReturnsSplitByUserDefinedDelimiter()
+        {
+            var stringCalculator = new Calculator();
+            var actual = stringCalculator.Split("//[***]\n1***2***3");
+            var expected = new[] {"1", "2", "3"};
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

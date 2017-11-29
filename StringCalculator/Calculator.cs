@@ -7,12 +7,11 @@ namespace StringCalculator
 {
     public class Calculator
     {
-        public int Add(string input)
+        public int Add(string[] numbers)
         {
-            if (string.IsNullOrEmpty(input)) return 0;
+            if (numbers.Length == 1 && string.IsNullOrEmpty(numbers[0])) return 0;
 
             var sum = 0;
-            var numbers = Split(input);
             var negatives = "";
             foreach (var stringValue in numbers)
             {
