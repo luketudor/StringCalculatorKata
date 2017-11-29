@@ -113,5 +113,15 @@ namespace StringCalculator
 
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void ReturnsSplitByUserDefinedMultipleDelimiter()
+        {
+            var stringCalculator = new Calculator();
+            var actual = stringCalculator.Split("//[*][%]\n1*2%3");
+            var expected = new[] { "1", "2", "3" };
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

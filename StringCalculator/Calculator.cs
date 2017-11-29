@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace StringCalculator
@@ -27,16 +28,21 @@ namespace StringCalculator
 
         public string[] Split(string input)
         {
-            var delimiter = ",";
+            var delimiters = new [] {",", "\n"};
             if (input.StartsWith("//"))
             {
-                var fullDelimiter = Regex.Match(input, "\\[.+\\]").Value;
-                delimiter = fullDelimiter.Trim('[', ']');
+                var delimiterList = new List<string>(delimiters);
+                var matches = Regex.Matches(input, "\\[.+?\\]"); /* [delim] */
+                foreach (Match match in matches)
+                {
+                    delimiterList.Add(match.Value.Trim('[', ']'));
+                }
 
-                input = Regex.Replace(input, "//\\[.+\\]\n", delimiter);
+                delimiters = delimiterList.ToArray();
+                input = Regex.Replace(input, "//\\[.+\\]+\n", delimiters[0]); /* //[delim][delim]\n */
             }
 
-            var splitString = input.Split(new[] {delimiter, ",", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+            var splitString = input.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
             return splitString;
         }
