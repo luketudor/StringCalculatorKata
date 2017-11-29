@@ -37,7 +37,8 @@ namespace StringCalculator
                     delimiterList.Add(match.Value.Trim('[', ']'));
 
                 delimiters = delimiterList.ToArray();
-                input = Regex.Replace(input, "//\\[.+\\]\n", delimiters[0]); /* //[delim][delim]\n */
+                var index = Regex.Match(input, "\\d").Index;
+                input = input.Substring(index);
             }
 
             var splitString = input.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);

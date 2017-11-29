@@ -80,7 +80,7 @@ namespace StringCalculator
         public void ReturnsSplitByUserDefinedMultipleDelimiter()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Split("//[*][%]\n1*2%3");
+            var actual = stringCalculator.Split("//[\n][\t]\n1\n2\t3");
             var expected = new[] {"1", "2", "3"};
 
             Assert.AreEqual(expected, actual);
