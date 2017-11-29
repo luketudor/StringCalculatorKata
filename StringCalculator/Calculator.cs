@@ -34,7 +34,8 @@ namespace StringCalculator
                 var index = Regex.Match(input, "\\d").Index;
                 var delimiterList = new List<string>(delimiters);
                 var header = input.Substring(0, index);
-                header = header.TrimStart('/').TrimEnd('\n', ']').TrimStart('[');
+                //header = header.TrraimStart('/').TrimEnd('\n', ']').TrimStart('[');
+                header = header.Remove(header.Length - 2).Remove(0, 3);
                 foreach (var delim in header.Split(new []{"]["}, StringSplitOptions.None))
                 {
                     delimiterList.Add(delim);
