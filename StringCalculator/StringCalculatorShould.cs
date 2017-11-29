@@ -90,7 +90,7 @@ namespace StringCalculator
         public void ReturnsSplitByUserDefinedAnotherMultipleDelimiter()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Split("//[//\n][]]\n1//\n2[3");
+            var actual = stringCalculator.Split("//[//\n][[]\n1//\n2[3");
             var expected = new[] {"1", "2", "3"};
 
             Assert.AreEqual(expected, actual);
@@ -110,8 +110,7 @@ namespace StringCalculator
         public void ReturnSumForSpecifiedDelimiter()
         {
             var stringCalculator = new Calculator();
-            // TODO remove square brackets
-            var actual = stringCalculator.Split("//[;]\n2;1");
+            var actual = stringCalculator.Split("//;\n2;1");
             var expected = new[] {"2", "1"};
 
             Assert.AreEqual(expected, actual);
