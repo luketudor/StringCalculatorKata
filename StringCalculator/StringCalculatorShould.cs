@@ -80,6 +80,7 @@ namespace StringCalculator
         public void ReturnSumForSpecifiedDelimiter()
         {
             var stringCalculator = new Calculator();
+            // TODO remove square brackets
             var actual = stringCalculator.Split("//[;]\n2;1");
             var expected = new[] {"2", "1"};
 
