@@ -28,15 +28,13 @@ namespace StringCalculator
 
         public string[] Split(string input)
         {
-            var delimiters = new [] {",", "\n"};
+            var delimiters = new[] {",", "\n"};
             if (input.StartsWith("//"))
             {
                 var delimiterList = new List<string>(delimiters);
                 var matches = Regex.Matches(input, "\\[.+?\\]"); /* [delim] */
                 foreach (Match match in matches)
-                {
                     delimiterList.Add(match.Value.Trim('[', ']'));
-                }
 
                 delimiters = delimiterList.ToArray();
                 input = Regex.Replace(input, "//\\[.+\\]\n", delimiters[0]); /* //[delim][delim]\n */
