@@ -10,7 +10,7 @@ namespace StringCalculator
         public void ReturnEmptyArray()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Add(new[] {""});
+            var actual = stringCalculator.Add(new string[0]);
             const int expected = 0;
 
             Assert.AreEqual(expected, actual);
@@ -21,7 +21,7 @@ namespace StringCalculator
         {
             var stringCalculator = new Calculator();
             var actual = stringCalculator.Split("");
-            var expected = new[] {""};
+            var expected = new string[0];
 
             Assert.AreEqual(expected, actual);
         }
@@ -80,7 +80,7 @@ namespace StringCalculator
         public void ReturnSumForSpecifiedDelimiter()
         {
             var stringCalculator = new Calculator();
-            var actual = stringCalculator.Split("//;\n2;1");
+            var actual = stringCalculator.Split("//[;]\n2;1");
             var expected = new[] {"2", "1"};
 
             Assert.AreEqual(expected, actual);

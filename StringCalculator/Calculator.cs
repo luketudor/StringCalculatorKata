@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
-using NUnit.Framework;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace StringCalculator
 {
@@ -9,7 +7,7 @@ namespace StringCalculator
     {
         public int Add(string[] numbers)
         {
-            if (numbers.Length == 1 && string.IsNullOrEmpty(numbers[0])) return 0;
+            if (numbers.Length == 0) return 0;
 
             var sum = 0;
             var negatives = "";
@@ -17,9 +15,7 @@ namespace StringCalculator
             {
                 var number = int.Parse(stringValue);
                 if (number < 0)
-                {
                     negatives += number + ", ";
-                }
                 sum += number;
             }
 
@@ -31,15 +27,16 @@ namespace StringCalculator
 
         public string[] Split(string input)
         {
-            var delimiter = ',';
-            var inputArray = input.ToCharArray();
+            var delimiter = ",";
             if (input.StartsWith("//"))
             {
-                delimiter = inputArray[2];
-                input = input.TrimStart('/', ';', '\n');
+                var fullDelimiter = Regex.Match(input, "\\[.+\\]").Value;
+                delimiter = fullDelimiter.Trim('[', ']');
+
+                input = Regex.Replace(input, "//\\[.+\\]\n", delimiter);
             }
 
-            var splitString = input.Split(delimiter, ',', '\n');
+            var splitString = input.Split(new[] {delimiter, ",", "\n"}, StringSplitOptions.RemoveEmptyEntries);
 
             return splitString;
         }
