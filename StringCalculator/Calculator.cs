@@ -31,13 +31,20 @@ namespace StringCalculator
             var delimiters = new[] {",", "\n"};
             if (input.StartsWith("//"))
             {
+                var index = Regex.Match(input, "\\d").Index;
                 var delimiterList = new List<string>(delimiters);
-                var matches = Regex.Matches(input, "\\[.+?\\]"); /* [delim] */
+                var header = input.Substring(0, index);
+                header = header.TrimStart('/').TrimEnd('\n', ']').TrimStart('[');
+                foreach (var delim in header.Split(new []{"]["}, StringSplitOptions.None))
+                {
+                    delimiterList.Add(delim);
+                }
+                /*var matches = Regex.Matches(input, "\\[.+?\\]"); // [delim] 
                 foreach (Match match in matches)
-                    delimiterList.Add(match.Value.Trim('[', ']'));
+                    delimiterList.Add(match.Value.Trim('[', ']'));*/
 
                 delimiters = delimiterList.ToArray();
-                var index = Regex.Match(input, "\\d").Index;
+                
                 input = input.Substring(index);
             }
 

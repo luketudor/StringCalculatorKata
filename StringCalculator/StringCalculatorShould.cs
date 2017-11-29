@@ -87,6 +87,16 @@ namespace StringCalculator
         }
 
         [Test]
+        public void ReturnsSplitByUserDefinedAnotherMultipleDelimiter()
+        {
+            var stringCalculator = new Calculator();
+            var actual = stringCalculator.Split("//[//\n][\t]\n1//\n2\t3");
+            var expected = new[] {"1", "2", "3"};
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
         public void ReturnsSplitByUserDefinedMultipleDelimiterWithMulipleChars()
         {
             var stringCalculator = new Calculator();
